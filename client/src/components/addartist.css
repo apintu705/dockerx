@@ -1,0 +1,30 @@
+.addartist{
+    position:absolute;
+    background:white;
+    box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding:2rem;
+    width:50%;
+    top:100px;
+}
+.addartist-inp{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap:2rem;
+}
+.addartist-inp>div{
+    display: flex;
+    gap:1rem;
+}
+.addartist-inp>div>input{
+    height: 2rem;
+    width: 70%;
+}
+.addartist-inp>div>textarea{
+    width: 70%;
+}
+.btnartist{
+    gap:4rem;
+    float:right;
+}

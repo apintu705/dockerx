@@ -1,0 +1,42 @@
+.addingsong{
+    position: relative;
+    padding:2rem;
+    display: flex;
+    flex-direction:column;
+    gap:2rem;
+}
+.addings-input{
+    display: flex;
+    flex-direction: column;
+    gap:2rem;
+}
+.addings-input>div{
+    display: flex;
+    gap:1rem;
+    align-items:center;
+    justify-content: flex-start;
+}
+
+.addings-input>div>input{
+    display: flex;
+    justify-content: flex-start;
+    height:2rem;
+    width:50rem;
+}
+.btn{
+    padding:3rem;
+    width:30%;
+    display: flex;
+    justify-content: space-between;
+}
+.btn>button{
+    height:3rem;
+    width:7rem;
+    background:white;
+    color:black;
+}
+.btn>button:hover{
+    background:black;
+    color:white;
+}
+.abs{}

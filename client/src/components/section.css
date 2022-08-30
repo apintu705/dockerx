@@ -1,0 +1,9 @@
+.section{
+    background:lightgray;
+    display: flex;
+    align-items:center;
+    justify-content: space-around;
+    font-style: 16px;
+    font-weight: bold;
+    padding-top:1rem;
+}

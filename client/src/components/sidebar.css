@@ -1,0 +1,25 @@
+.sidebar{
+    position:realtive;
+    background-color:balck;
+    background:#009938;
+    color:white;
+    float: right;
+    
+}.overlay{
+    z-index: 9;
+    margin: 30px;
+    background: #009938;
+}
+.iconx{
+    margin:10px;
+    float:right;
+    
+}
+.sidewrapper{
+    padding:3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:2rem;
+}
