@@ -26,6 +26,20 @@ exports.createsong=async(req, res, next) => {
     }
 }
 
+// search songs
+
+exports.searchsong=async(req,res,next)=>{
+    try{
+        let data= await Songs.find();
+        data=data.filter(item => (item.Name === req.query.q))
+        res.status(200).json(data)
+
+    }
+    catch(err){
+        res.status(500).json({message:err.message})
+    }
+}
+
 // get allsongs
 
 exports.getallsongs=async(req, res, next)=>{
@@ -45,6 +59,7 @@ exports.ratingsong=async(req, res, next)=>{
     
         const userid=req.params.id;
         const {_id}=req.body;
+        
         if(userid===_id){
             res.status(403).json("Access forbodden!")
         }
@@ -65,9 +80,9 @@ exports.ratingsong=async(req, res, next)=>{
                         sum+=rateing.Ratings[i].rate;
                     }
                     for(let i=0; i<rateing.Artist.length; i++){
-                        console.log(rateing.Artist[i])
+                        
                     }
-                    
+                     await updateartistavgr(rateing)
                     let avg=sum/rateing.Ratings.length; 
                     await rateing.updateOne({avgrateing:avg});
                     
@@ -82,7 +97,7 @@ exports.ratingsong=async(req, res, next)=>{
                         sum+=rateing.Ratings[i].rate;
                     }
                     let avg=sum/rateing.Ratings.length; 
-                    updateartistavgr(rateing)
+                     await updateartistavgr(rateing)
                     
                     
                     await rateing.updateOne({avgrateing:avg})
@@ -99,10 +114,11 @@ exports.ratingsong=async(req, res, next)=>{
 }
 
 const updateartistavgr=async(R) => {
+    
     try{
         for(let i=0; i<R.Artist.length; i++){
+            let Art=R.Artist[i]
             
-            console.log(Art)
             let a=await Songs.find({Artist:{$in:[Art]}})
             
             let suma=0;
