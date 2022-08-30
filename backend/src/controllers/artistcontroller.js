@@ -20,7 +20,7 @@ exports.cteateArtist=async(req,res,next) => {
 // get all artist models
 exports.getAllArtist=async(req,res,next) => {
     try{
-        const artist=await Artist.find()
+        const artist=await Artist.find().sort({avgr:-1})
         
         res.status(200).json({artist})
     }
