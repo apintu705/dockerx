@@ -16,6 +16,7 @@ export const Homec = ({isrender}) => {
     const {songs}=useSelector((state)=>state.songs);
     const [rating,setrating]=useState(0)
     const {authdata}=useSelector((state)=>state.user);
+    let [lk,setlk]=useState(false)
     
 
     const handleaddsongs=()=>{
@@ -31,13 +32,15 @@ export const Homec = ({isrender}) => {
         let id=authdata&&authdata.user._id
         dispatch(ratingaction(id,data))
         isrender()
+        setlk(!lk)
         navigate("/")
         
     }
     useEffect(()=>{
         dispatch(getallartist())
         dispatch(allsongsaction())
-    },[dispatch,isrender,rating,navigate])
+        
+    },[dispatch,isrender,rating,navigate,lk])
     
     
     
