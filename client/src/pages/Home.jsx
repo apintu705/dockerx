@@ -5,7 +5,7 @@ import { Navbar } from '../components/Navbar'
 
 import { Sidebar } from '../components/Sidebar'
 
-export const Home = () => {
+export const Home = ({isrender}) => {
   const [isOpen,setIsOpen]=useState(false)
 
   const toggle=()=>{
@@ -13,7 +13,7 @@ export const Home = () => {
   }
   return (
     <>
-    <Navbar toggle={toggle}/>
+    <Navbar toggle={toggle} isrender={isrender}/>
     <Sidebar isOpen={isOpen} toggle={toggle}/>
     
     </>

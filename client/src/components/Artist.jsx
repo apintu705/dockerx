@@ -26,11 +26,11 @@ export const Artist = () => {
             
             <ul className='artist-cont'>
                 <li><h2>Date of Birth</h2></li>
-                {artist&&artist.map((e,i)=><li key={i}>{e.DOB}</li>)}
+                {artist&&artist.map((e,i)=><li key={i}>{e.DOB.split("").splice(0,10).join("").split("-")[2]+"/"+e.DOB.split("").splice(0,10).join("").split("-")[1]+"/"+e.DOB.split("").splice(0,10).join("").split("-")[0]}</li>)}
             </ul>
             <ul className='artist-cont'>
                 <li><h2>Avrrating</h2></li>
-                {artist&&artist.map((e,i)=><li key={i}>{e.avgr}</li>)}
+                {artist&&artist.map((e,i)=><li key={i}>{e.avgr.toFixed(2)}</li>)}
             </ul>
             <ul className='artist-cont'>
                 <li><h2>Bio</h2></li>

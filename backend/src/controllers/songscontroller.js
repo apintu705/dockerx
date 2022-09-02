@@ -18,6 +18,7 @@ exports.createsong=async(req, res, next) => {
             Artist,
         })
         song=await data.save();
+        song=await Songs.find().sort({avgrateing:-1});
         res.status(200).json({song})
 
     }
@@ -30,9 +31,9 @@ exports.createsong=async(req, res, next) => {
 
 exports.searchsong=async(req,res,next)=>{
     try{
-        let data= await Songs.find();
-        data=data.filter(item => (item.Name === req.query.q))
-        res.status(200).json(data)
+        let song= await Songs.find();
+        song=song.filter(item => (item.Name === req.query.q))
+        res.status(200).json({song})
 
     }
     catch(err){
@@ -82,11 +83,12 @@ exports.ratingsong=async(req, res, next)=>{
                     for(let i=0; i<rateing.Artist.length; i++){
                         
                     }
-                     await updateartistavgr(rateing)
+                     
                     let avg=sum/rateing.Ratings.length; 
                     await rateing.updateOne({avgrateing:avg});
-                    
-                    res.status(200).json("user revewed")
+                    const song=await Songs.find().sort({avgrateing:-1});
+                    const artist=await Artistsssp.find().sort({avgr:-1})
+                    res.status(200).json({song,artist})
                 }
                 else if(!access){
                     await rateing.updateOne({$pull:{Ratings:{user:userid}}});
@@ -97,11 +99,14 @@ exports.ratingsong=async(req, res, next)=>{
                         sum+=rateing.Ratings[i].rate;
                     }
                     let avg=sum/rateing.Ratings.length; 
-                     await updateartistavgr(rateing)
+                     
                     
                     
                     await rateing.updateOne({avgrateing:avg})
-                    res.status(200).json("user revewed")
+                    await updateartistavgr(rateing)
+                    const song=await Songs.find().sort({avgrateing:-1});
+                    const artist=await Artistsssp.find().sort({avgr:-1})
+                    res.status(200).json({song,artist})
                 }
                 
             }

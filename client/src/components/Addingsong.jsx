@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { createsong } from "../redux/action/songsaction";
 
 
-export const Addingsong = () => {
+export const Addingsong = ({isrender}) => {
     const dispatch=useDispatch()
     const navigate=useNavigate()
     const [aatist,setaatist]=useState(false)
@@ -35,6 +35,7 @@ export const Addingsong = () => {
     const handlesubmit=(e)=>{
         e.preventDefault();
         dispatch(createsong(data))
+        isrender()
         navigate("/")
     }
   return (

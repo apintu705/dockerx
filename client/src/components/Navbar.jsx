@@ -1,11 +1,25 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
 import {FaArrowRight,FaArrowLeft,FaSearch,FaBars,FaSyncAlt} from "react-icons/fa"
 import "./navbar.css"
+import { useDispatch } from 'react-redux'
+import { allsongsaction, searchsongaction } from '../redux/action/songsaction'
 
 
-export const Navbar = ({toggle}) => {
-    const navigate=useNavigate();
+export const Navbar = ({toggle,isrender}) => {
+
+    const dispatch=useDispatch()
+    const [search,setSearch]=useState("");
+    const enter=(e)=>{
+        if(e.key==="Enter"){
+            dispatch(searchsongaction(search));
+            isrender();
+        }
+    }
+    const reload=() => {
+        
+        dispatch(allsongsaction())
+        isrender();
+    }
     
   return (
     <div className="navbar">
@@ -14,11 +28,11 @@ export const Navbar = ({toggle}) => {
             <FaArrowRight />
         </div>
         <div className="icon">
-            <FaSyncAlt onClick={()=>navigate("/")}/>
+            <FaSyncAlt onClick={reload} style={{cursor:"pointer"}}/>
         </div>
         <div className="icon search">
             <FaSearch/>
-            <input className="searchinp" type="text" placeholder="search song" />
+            <input onChange={(e)=>setSearch(e.target.value)} onKeyPress={(e)=>enter(e)} className="searchinp" type="text" placeholder="search song by title" />
         </div>
         <div className="icon">
             <FaBars onClick={toggle}/>

@@ -16,40 +16,46 @@ export const Homec = ({isrender}) => {
     const {songs}=useSelector((state)=>state.songs);
     const [rating,setrating]=useState(0)
     const {authdata}=useSelector((state)=>state.user);
-    let [lk,setlk]=useState(false)
     
 
     const handleaddsongs=()=>{
-        navigate('/addsong')
-    }
-    let data;
-    const ratingChanged=(e,m)=>{
-        setrating(e);
-         data={
-            "_id":m._id,
-            "rate":e
+        if(!authdata){
+            navigate("/signin")
         }
-        let id=authdata&&authdata.user._id
-        dispatch(ratingaction(id,data))
-        isrender()
-        setlk(!lk)
-        navigate("/")
+        else{
+           navigate('/addsong') 
+        }
+        
+    }
+    let dat;
+    const ratingChanged=async(e,m)=>{
+        if(!authdata){
+            navigate("/signin")
+        }else{
+            setrating(e);
+            dat={
+               "_id":m._id,
+               "rate":e
+           }
+           let id=authdata&&authdata.user._id
+           dispatch(ratingaction(id,dat))
+           isrender()
+        }
+        
         
     }
     useEffect(()=>{
-        dispatch(getallartist())
         dispatch(allsongsaction())
+        dispatch(getallartist())
         
-    },[dispatch,isrender,rating,navigate,lk])
+    },[rating,dispatch])
     
-    
-    
+
     
   return (
     <>
     <Section/>
-    
-    <div className="homec">
+    {songs&&songs.length?(<div className="homec">
 
         <div className="homec-title">
             <h1>Top 10 Songs</h1>
@@ -76,8 +82,10 @@ export const Homec = ({isrender}) => {
             </ul>
             <ul className='hc-cont'>
                 <li><h2>Date of Release</h2></li>
-                {songs&&songs.map((e,i)=><li key={i}>
-                    {e.DateOfRelease}
+                {songs&&songs.map((e,i)=>
+                
+                <li key={i}>
+                    {e.DateOfRelease.split("").splice(0,10).join("").split("-")[2]+"/"+e.DateOfRelease.split("").splice(0,10).join("").split("-")[1]+"/"+e.DateOfRelease.split("").splice(0,10).join("").split("-")[0]}
                 </li>)}
             </ul>
             <ul className='hc-cont'>
@@ -89,7 +97,7 @@ export const Homec = ({isrender}) => {
             <ul className='hc-cont'>
                 <li><h2>Avgrating</h2></li>
                 {songs&&songs.map((e,i)=><li key={i}>
-                    {e.avgrateing}
+                    {e.avgrateing.toFixed(2)}
                 </li>)}
             </ul>
             <ul className='hc-cont'>
@@ -101,12 +109,12 @@ export const Homec = ({isrender}) => {
                     size={24}
                     color2={'#ffd700'}
                     />
-                </li>)}
-                
+                </li>)}   
             </ul>
         </div>
         
-    </div>
+    </div>):<div className="snf"> song not found please enter correct song name</div>}
+    
 
     <Artist/>
     </>

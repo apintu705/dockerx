@@ -1,9 +1,16 @@
 .section{
     background:lightgray;
-    display: flex;
-    align-items:center;
-    justify-content: space-around;
-    font-style: 16px;
+
+    font-size: 18px;
     font-weight: bold;
-    padding-top:1rem;
+    padding:1rem;
+}
+.homesection{
+    margin-left: 50px;
+    width:100px;
+    height: 3rem;
+    background:white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
